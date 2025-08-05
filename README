@@ -1,0 +1,6 @@
+GAS
+push: clasp push
+pull: clasp pull
+
+Supabase
+push: supabase functions deploy match_mentors

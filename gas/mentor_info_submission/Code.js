@@ -2,7 +2,7 @@ function test_onFormSubmit() {
   const fakeEvent = {
     values: [
       '2025/08/05 01:00:00',       // created_at
-      'テスト太郎',                 // name
+      'Taro Test',                 // name
       'test@example.com',           // email
       '東京都',                     // hometown
       '大学3年',                    // grade
