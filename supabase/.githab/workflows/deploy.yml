@@ -2,7 +2,7 @@ name: Deploy Edge Function
 
 on:
   push:
-    branches: [ "main" ] # mainブランチにpushされたらデプロイ
+    branches: [ "main" ]
 
 jobs:
   deploy:

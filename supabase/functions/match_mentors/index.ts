@@ -8,7 +8,7 @@ console.info('server started');
 Deno.serve(async (req: Request) => {
   const { name }: reqPayload = await req.json();
   const data = {
-    message: `Good evening, ${name}!`,
+    message: `Good morning, ${name}!`,
   };
 
   return new Response(
