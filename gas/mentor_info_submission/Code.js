@@ -31,7 +31,9 @@ function test_onFormSubmit() {
       '奨学金で解消',               // resolved_concerns
       '国際機関で働く',             // future_image
       '社交的, チャレンジ精神旺盛', // parsonalities
-      '旅行, 読書, スポーツ'        // hobbies
+      '旅行, 読書, スポーツ',        // hobbies
+      'https://profile.link.com',  // links
+      '頑張ってください！'          // message
     ]
   };
 
@@ -75,8 +77,10 @@ function onFormSubmit(e) {
   const fifth_concern = e.values[26];
   const resolved_concerns = e.values[27];
   const future_image = e.values[28];
-  const parsonalities = e.values[29];
+  const personalities = e.values[29];
   const hobbies = e.values[30];
+  const links = e.values[31];
+  const message = e.values[32];
 
   const payload = {
     created_at,
@@ -108,8 +112,10 @@ function onFormSubmit(e) {
     fifth_concern,
     resolved_concerns,
     future_image,
-    parsonalities,
-    hobbies
+    personalities,
+    hobbies,
+    links,
+    message
   };
 
   const query = `name=eq.${encodeURIComponent(name)}&or=(email.eq.${encodeURIComponent(email)})`;
