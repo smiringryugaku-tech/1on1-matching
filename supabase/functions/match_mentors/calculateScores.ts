@@ -1,14 +1,6 @@
 import type { Mentor, Mentee, Priority } from "./types.ts";
 import { onlyOneSelection, levelSelection, multiSelection, inGroupSelection, specificContentSelection } from "./matching_functions.ts";
 
-export type Scores = Record<string, number>;
-
-function initScores(mentors: { id: number}[]): Scores {
-  const scores: Scores = {};
-  for (const m of mentors) scores[String(m.id)] = 0;
-  return scores;
-}
-
 export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]): Priority {
   let concernsRatio = new Array(priorities.length).fill(0);
   let priorityScores: Priority = {
@@ -66,13 +58,14 @@ export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]):
     priorityScores.admissions_support += p.admissions_support * ratio;
   }
 
+  console.log("  Calculated priority scores:\n", priorityScores, "\n");
   return priorityScores;
 }
 
 export function calculateScores(mentee: Mentee, mentors: Mentor[], priorityScores: Priority): Array<Mentor & { score: number }>  {
-  const scores = initScores(mentors);
 
   if (priorityScores.admissions_support > 1) {
+    console.log("  Admissions support priority > 1, filtering mentors who can provide admissions support");
     return [];
   };
 

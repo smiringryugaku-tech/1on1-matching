@@ -12,7 +12,7 @@ serve(async (req) => {
   );
 
   // Receive mentee info from GAS
-  console.log("***\n📥 Receiving mentee info from Google From...");
+  console.log("\n***\n📥 Receiving mentee info from Google From...");
   const mentee = await receiveMentee(req);
 
   // Get all mentors from Supabase and calculate scores
@@ -29,7 +29,7 @@ serve(async (req) => {
     return new Response(JSON.stringify({ error: "No mentors found" }), { status: 404 });
   }
 
-  console.log("***\n📥 Fetching priorities from database...");
+  console.log("\n***\n📥 Fetching priorities from database...");
   const { data: priorities, prioritiesError} = await supabase
     .from<Priority>("priorities")
     .select("*");
@@ -42,15 +42,17 @@ serve(async (req) => {
       return new Response(JSON.stringify({ error: "No priorities found" }), { status: 404 });
     }
 
-  console.log("***\n🧮 Calculating priority scores...");
+  console.log("\n***\n🧮 Calculating priority scores...");
   const priorityScores = caluclatePriorityScores(mentee, priorities);
 
-  console.log("***\n🧮 Caluclating mentor scores...");
+  console.log("\n***\n🧮 Caluclating mentor scores...");
   const matchedMentors = calculateScores(mentee, mentors, priorityScores);
 
   // Send email with matched mentors
-  console.log("***\n✉️ Sending email...");
+  console.log("\n***\n✉️ Sending email...");
   await sendEmail(matchedMentors);
+
+  console.log("\n***\n✅ Matching process complete!\n");
 
   return new Response(JSON.stringify({
     message: "Matching complete",
