@@ -1,8 +1,8 @@
 import { serve } from "https://deno.land/std/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { Mentor, Mentee } from "./types.ts";
+import { Mentor, Mentee, Priority } from "./types.ts";
 import { receiveMentee } from "./receiveMentee.ts";
-import { calculateScores } from "./calculateScores.ts";
+import { calculateScores, caluclatePriorityScores } from "./calculateScores.ts";
 import { sendEmail } from "./sendEmail.ts";
 
 serve(async (req) => {
@@ -12,26 +12,45 @@ serve(async (req) => {
   );
 
   // Receive mentee info from GAS
+  console.log("***\n📥 Receiving mentee info from Google From...");
   const mentee = await receiveMentee(req);
 
   // Get all mentors from Supabase and calculate scores
-  const { data: mentors, error } = await supabase
+  console.log("***\n📥 Fetching mentors info from database...");
+  const { data: mentors, menotrsError } = await supabase
     .from<Mentor>("mentors_info")
     .select("*");
 
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  if (menotrsError) {
+    return new Response(JSON.stringify({ error: menotrsError.message }), { status: 500 });
   }
-  
+
   if (!mentors) {
     return new Response(JSON.stringify({ error: "No mentors found" }), { status: 404 });
   }
 
+  console.log("***\n📥 Fetching priorities from database...");
+  const { data: priorities, prioritiesError} = await supabase
+    .from<Priority>("priorities")
+    .select("*");
 
-  const matchedMentors = calculateScores(mentee, mentors);
+    if (prioritiesError) {
+      return new Response(JSON.stringify({ error: prioritiesError.message }), { status: 500 });
+    }
+  
+    if (!priorities) {
+      return new Response(JSON.stringify({ error: "No priorities found" }), { status: 404 });
+    }
+
+  console.log("***\n🧮 Calculating priority scores...");
+  const priorityScores = caluclatePriorityScores(mentee, priorities);
+
+  console.log("***\n🧮 Caluclating mentor scores...");
+  const matchedMentors = calculateScores(mentee, mentors, priorityScores);
 
   // Send email with matched mentors
-  await sendEmail(matchedMentors.map(m => m.name));
+  console.log("***\n✉️ Sending email...");
+  await sendEmail(matchedMentors);
 
   return new Response(JSON.stringify({
     message: "Matching complete",

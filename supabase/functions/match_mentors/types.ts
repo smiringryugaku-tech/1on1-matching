@@ -46,7 +46,7 @@ export interface Mentor {
     majors: string;
     timing: string;
     study_abroad_type: string;
-    universities: string;
+    university_types: string;
     first_reason: string;
     second_reason: string;
     third_reason: string;
@@ -61,3 +61,22 @@ export interface Mentor {
     comment: string;
   }
   
+  export interface Priority {
+    id: number;
+    concern_title: string;
+    concern: number;
+    reasons: number;
+    future_image: number;
+    personality: number;
+    personality_talkative: number;
+    personality_positive: number;
+    major: number;
+    major_AorS: number;
+    country: number;
+    study_abroad_type: number;
+    university_type: number;
+    hometown: number;
+    hobbies: number;
+    final_grade: number;
+    admissions_support: number;
+  }

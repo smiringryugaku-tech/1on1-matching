@@ -1,4 +1,4 @@
-import { Mentor, Mentee } from './types';
+import { Mentor, Mentee } from './types.ts';
 
 // export type ScoreRatios = Record<string, number>;
 
@@ -90,12 +90,24 @@ export function inGroupSelection(key: string, mentee: Mentee, mentors: Mentor[],
     } else {
       for (const group of groups) {
         if (group.includes(mentee[key]) && group.includes(mentor[key])) {
-          score = 1;
+          score = 0.7;
           break;
         }
       }
     }
     scores.push(score);
+  }
+  return scores;
+}
+
+export function specificContentSelection(key: string, mentee: Mentee, mentors: Mentor[], contents: string[]): number[] {
+  const scores: number[] = [];
+  for (const mentor of mentors) {
+    if (contents.some(content => mentor[key].includes(content))) {
+      scores.push(1);
+    } else {
+      scores.push(0);
+    }
   }
   return scores;
 }

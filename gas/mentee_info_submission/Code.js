@@ -13,7 +13,7 @@ function onFormSubmit(e) {
     majors: row[7],
     timing: row[8],
     study_abroad_type: row[9],
-    universities: row[10],
+    university_types: row[10],
     first_reason: row[11],
     second_reason: row[12],
     third_reason: row[13],
