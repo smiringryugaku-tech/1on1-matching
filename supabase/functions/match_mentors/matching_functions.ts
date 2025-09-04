@@ -70,9 +70,11 @@ export function levelSelection(key: keyof Mentee, mentee: Mentee, mentors: Mento
 }
 
 export function multiSelection(key: string, mentee: Mentee, mentors: Mentor[]): number[] {
+  // console.log("  -- key: ", key, "  -- mentee[key]: ", mentee[key]);
   const menteeItems = mentee[key].split(",").map(s => s.trim());
   const scores: number[] = [];
   for (const mentor of mentors) {
+    // console.log("  -- key: ", key, "  -- mentor[key]: ", mentor[key]);
     const mentorItems = mentor[key].split(",").map(s => s.trim());
     const commonItems = menteeItems.filter(item => mentorItems.includes(item));
     scores.push(commonItems.length/menteeItems.length);

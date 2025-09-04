@@ -56,6 +56,6 @@ serve(async (req) => {
 
   return new Response(JSON.stringify({
     message: "Matching complete",
-    matched: matchedMentors.map(m => m.name)
+    matched: matchedMentors.map(m => m.score)
   }), { headers: { "Content-Type": "application/json" } });
 });

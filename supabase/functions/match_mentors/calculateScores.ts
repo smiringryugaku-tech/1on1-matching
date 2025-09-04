@@ -2,7 +2,7 @@ import type { Mentor, Mentee, Priority } from "./types.ts";
 import { onlyOneSelection, levelSelection, multiSelection, inGroupSelection, specificContentSelection } from "./matching_functions.ts";
 
 export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]): Priority {
-  let concernsRatio = new Array(priorities.length).fill(0);
+  let concernsRatio: Array<number> = new Array(priorities.length).fill(0);
   let priorityScores: Priority = {
     id: 0, 
     concern_title: "priorityScores", 
@@ -37,9 +37,13 @@ export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]):
     }
   }
 
+  // console.log(" --> priorities: ", priorities);
+  // console.log(" --> concernsRatio: ", concernsRatio);
+
   for (let i = 0; i < priorities.length; i++) {
     const p = priorities[i];
     const ratio = concernsRatio[i];
+    console.log("i: ", i, " === priorities[i]: ", p);
     if (ratio === 0) continue;
     priorityScores.concern += p.concern * ratio;
     priorityScores.reasons += p.reasons * ratio;
@@ -47,6 +51,7 @@ export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]):
     priorityScores.personality += p.personality * ratio;
     priorityScores.personality_talkative += p.personality_talkative * ratio;
     priorityScores.personality_positive += p.personality_positive * ratio;
+    // console.log("i: ", i, " === p.personality_positive: ", p.personality_positive, " * ratio: ", ratio, " = ", p.personality_positive * ratio, " --> priorityScores.personality_positive: ", priorityScores.personality_positive);
     priorityScores.major += p.major * ratio;
     priorityScores.major_AorS += p.major_AorS * ratio;
     priorityScores.country += p.country * ratio;
@@ -70,35 +75,76 @@ export function calculateScores(mentee: Mentee, mentors: Mentor[], priorityScore
   };
 
   const firstConcernScore = levelSelection("first_concern", mentee, mentors);
+  console.log(" * calculated firstConcernScore: ", firstConcernScore);
+
   const secondConcernScore = levelSelection("second_concern", mentee, mentors);
+  console.log(" * calculated secondConcernScore: ", secondConcernScore);
+
   const thirdConcernScore = levelSelection("third_concern", mentee, mentors);
+  console.log(" * calculated thirdConcernScore: ", thirdConcernScore);
+
   const fourthConcernScore = levelSelection("fourth_concern", mentee, mentors);
+  console.log(" * calculated fourthConcernScore: ", fourthConcernScore);
+
   const fifthConcernScore = levelSelection("fifth_concern", mentee, mentors);
+  console.log(" * calculated fifthConcernScore: ", fifthConcernScore);
+
   const firstReasonScore = levelSelection("first_reason", mentee, mentors);
+  console.log(" * calculated firstReasonScore: ", firstReasonScore);
+
   const secondReasonScore = levelSelection("second_reason", mentee, mentors);
+  console.log(" * calculated secondReasonScore: ", secondReasonScore);
+
   const thirdReasonScore = levelSelection("third_reason", mentee, mentors);
+  console.log(" * calculated thirdReasonScore: ", thirdReasonScore);
+
   const futureImageScore = multiSelection("future_image", mentee, mentors);
+  console.log(" * calculated futureImageScore: ", futureImageScore);
+
   const personalitiesScore = multiSelection("personalities", mentee, mentors);
+  console.log(" * calculated personalitiesScore: ", personalitiesScore);
+
   const talkativeScore = specificContentSelection("personalities", mentee, mentors, ["話好き"]);
+  console.log(" * calculated talkativeScore: ", talkativeScore);
+
   const positiveScore = specificContentSelection("personalities", mentee, mentors, ["ポジティブ"]);
+  console.log(" * calculated positiveScore: ", positiveScore);
+
   const majorScore = multiSelection("majors", mentee, mentors);
+  console.log(" * calculated majorScore: ", majorScore);
+
   const majorAScore = specificContentSelection("majors", mentee, mentors, ["文系"]);
+  console.log(" * calculated majorAScore: ", majorAScore);
+
   const majorSScore = specificContentSelection("majors", mentee, mentors, ["理系"]);
+  console.log(" * calculated majorSScore: ", majorSScore);
+
   const countryScore = multiSelection("study_abroad_area", mentee, mentors);
+  console.log(" * calculated countryScore: ", countryScore);
+
   const studyAbroadTypeScore = multiSelection("study_abroad_type", mentee, mentors);
+  console.log(" * calculated studyAbroadTypeScore: ", studyAbroadTypeScore);
+
   const universityTypeScore = multiSelection("university_types", mentee, mentors);
+  console.log(" * calculated universityTypeScore: ", universityTypeScore);
+
   const hometownScore = inGroupSelection("hometown", mentee, mentors, [
     ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県"],
     ["茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県"],
-    ["新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県"], 
+    ["新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県"],
     ["三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県"],
     ["鳥取県", "島根県", "岡山県", "広島県", "山口県"],
     ["徳島県", "香川県", "愛媛県", "高知県"],
     ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"],
     ["海外"]
   ]);
+  console.log(" * calculated hometownScore: ", hometownScore);
+
   const hobbiesScore = multiSelection("hobbies", mentee, mentors);
+  console.log(" * calculated hobbiesScore: ", hobbiesScore);
+
   const finalGradeScore = specificContentSelection("grade", mentee, mentors, ["大学4年", "大学院生", "既卒性/社会人"]);
+  console.log(" * calculated finalGradeScore: ", finalGradeScore);
 
   const concernScore = firstConcernScore.map((score, index) => {
     return (
