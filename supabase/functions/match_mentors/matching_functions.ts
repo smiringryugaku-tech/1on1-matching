@@ -88,12 +88,10 @@ export function inGroupSelection(key: string, mentee: Mentee, mentors: Mentor[],
     let score = 0;
     if (mentee[key] === mentor[key]) {
       score = 1;
-      break;
     } else {
       for (const group of groups) {
         if (group.includes(mentee[key]) && group.includes(mentor[key])) {
           score = 0.7;
-          break;
         }
       }
     }

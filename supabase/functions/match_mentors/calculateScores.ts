@@ -2,7 +2,7 @@ import type { Mentor, Mentee, Priority } from "./types.ts";
 import { onlyOneSelection, levelSelection, multiSelection, inGroupSelection, specificContentSelection } from "./matching_functions.ts";
 
 export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]): Priority {
-  let concernsRatio: Array<number> = new Array(priorities.length).fill(0);
+  let concernsRatio = new Array(priorities.length).fill(0);
   let priorityScores: Priority = {
     id: 0, 
     concern_title: "priorityScores", 
@@ -185,7 +185,7 @@ export function calculateScores(mentee: Mentee, mentors: Mentor[], priorityScore
   });
 
   const mentorsWithScores = mentors.map((mentor, index) => {
-    return { ...mentor, score: totalScores[index] };
+    return { ...mentor, score: Math.round(totalScores[index] * 1000) / 1000 };
   });
 
   return mentorsWithScores.sort((a, b) => b.score - a.score);
