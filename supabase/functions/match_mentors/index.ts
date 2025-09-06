@@ -8,14 +8,14 @@ import { sendEmail } from "./sendEmail.ts";
 serve(async (req) => {
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
   );
 
-  // Receive mentee info from GAS
+  const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
+
   console.log("\n***\n📥 Receiving mentee info from Google From...");
   const mentee = await receiveMentee(req);
 
-  // Get all mentors from Supabase and calculate scores
   console.log("***\n📥 Fetching mentors info from database...");
   const { data: mentors, menotrsError } = await supabase
     .from<Mentor>("mentors_info")
@@ -50,7 +50,7 @@ serve(async (req) => {
 
   // Send email with matched mentors
   console.log("\n***\n✉️ Sending email...");
-  await sendEmail(matchedMentors);
+  await sendEmail(RESEND_API_KEY, mentee, matchedMentors, priorityScores);
 
   console.log("\n***\n✅ Matching process complete!\n");
 

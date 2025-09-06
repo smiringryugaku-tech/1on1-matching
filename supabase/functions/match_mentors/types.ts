@@ -31,7 +31,7 @@ export interface Mentor {
     future_image: string;
     personalities: string;
     hobbies: string;
-    linkes: string;
+    links: string;
     message: string;
   }
   

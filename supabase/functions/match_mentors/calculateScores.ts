@@ -43,7 +43,7 @@ export function caluclatePriorityScores(mentee: Mentee, priorities: Priority[]):
   for (let i = 0; i < priorities.length; i++) {
     const p = priorities[i];
     const ratio = concernsRatio[i];
-    console.log("i: ", i, " === priorities[i]: ", p);
+    // console.log("i: ", i, " === priorities[i]: ", p);
     if (ratio === 0) continue;
     priorityScores.concern += p.concern * ratio;
     priorityScores.reasons += p.reasons * ratio;
@@ -75,58 +75,58 @@ export function calculateScores(mentee: Mentee, mentors: Mentor[], priorityScore
   };
 
   const firstConcernScore = levelSelection("first_concern", mentee, mentors);
-  console.log(" * calculated firstConcernScore: ", firstConcernScore);
+  // console.log(" * calculated firstConcernScore: ", firstConcernScore);
 
   const secondConcernScore = levelSelection("second_concern", mentee, mentors);
-  console.log(" * calculated secondConcernScore: ", secondConcernScore);
+  // console.log(" * calculated secondConcernScore: ", secondConcernScore);
 
   const thirdConcernScore = levelSelection("third_concern", mentee, mentors);
-  console.log(" * calculated thirdConcernScore: ", thirdConcernScore);
+  // console.log(" * calculated thirdConcernScore: ", thirdConcernScore);
 
   const fourthConcernScore = levelSelection("fourth_concern", mentee, mentors);
-  console.log(" * calculated fourthConcernScore: ", fourthConcernScore);
+  // console.log(" * calculated fourthConcernScore: ", fourthConcernScore);
 
   const fifthConcernScore = levelSelection("fifth_concern", mentee, mentors);
-  console.log(" * calculated fifthConcernScore: ", fifthConcernScore);
+  // console.log(" * calculated fifthConcernScore: ", fifthConcernScore);
 
   const firstReasonScore = levelSelection("first_reason", mentee, mentors);
-  console.log(" * calculated firstReasonScore: ", firstReasonScore);
+  // console.log(" * calculated firstReasonScore: ", firstReasonScore);
 
   const secondReasonScore = levelSelection("second_reason", mentee, mentors);
-  console.log(" * calculated secondReasonScore: ", secondReasonScore);
+  // console.log(" * calculated secondReasonScore: ", secondReasonScore);
 
   const thirdReasonScore = levelSelection("third_reason", mentee, mentors);
-  console.log(" * calculated thirdReasonScore: ", thirdReasonScore);
+  // console.log(" * calculated thirdReasonScore: ", thirdReasonScore);
 
   const futureImageScore = multiSelection("future_image", mentee, mentors);
-  console.log(" * calculated futureImageScore: ", futureImageScore);
+  // console.log(" * calculated futureImageScore: ", futureImageScore);
 
   const personalitiesScore = multiSelection("personalities", mentee, mentors);
-  console.log(" * calculated personalitiesScore: ", personalitiesScore);
+  // console.log(" * calculated personalitiesScore: ", personalitiesScore);
 
   const talkativeScore = specificContentSelection("personalities", mentee, mentors, ["話好き"]);
-  console.log(" * calculated talkativeScore: ", talkativeScore);
+  // console.log(" * calculated talkativeScore: ", talkativeScore);
 
   const positiveScore = specificContentSelection("personalities", mentee, mentors, ["ポジティブ"]);
-  console.log(" * calculated positiveScore: ", positiveScore);
+  // console.log(" * calculated positiveScore: ", positiveScore);
 
   const majorScore = multiSelection("majors", mentee, mentors);
-  console.log(" * calculated majorScore: ", majorScore);
+  // console.log(" * calculated majorScore: ", majorScore);
 
   const majorAScore = specificContentSelection("majors", mentee, mentors, ["文系"]);
-  console.log(" * calculated majorAScore: ", majorAScore);
+  // console.log(" * calculated majorAScore: ", majorAScore);
 
   const majorSScore = specificContentSelection("majors", mentee, mentors, ["理系"]);
-  console.log(" * calculated majorSScore: ", majorSScore);
+  // console.log(" * calculated majorSScore: ", majorSScore);
 
   const countryScore = multiSelection("study_abroad_area", mentee, mentors);
-  console.log(" * calculated countryScore: ", countryScore);
+  // console.log(" * calculated countryScore: ", countryScore);
 
   const studyAbroadTypeScore = multiSelection("study_abroad_type", mentee, mentors);
-  console.log(" * calculated studyAbroadTypeScore: ", studyAbroadTypeScore);
+  // console.log(" * calculated studyAbroadTypeScore: ", studyAbroadTypeScore);
 
   const universityTypeScore = multiSelection("university_types", mentee, mentors);
-  console.log(" * calculated universityTypeScore: ", universityTypeScore);
+  // console.log(" * calculated universityTypeScore: ", universityTypeScore);
 
   const hometownScore = inGroupSelection("hometown", mentee, mentors, [
     ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県"],
@@ -138,13 +138,13 @@ export function calculateScores(mentee: Mentee, mentors: Mentor[], priorityScore
     ["福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"],
     ["海外"]
   ]);
-  console.log(" * calculated hometownScore: ", hometownScore);
+  // console.log(" * calculated hometownScore: ", hometownScore);
 
   const hobbiesScore = multiSelection("hobbies", mentee, mentors);
-  console.log(" * calculated hobbiesScore: ", hobbiesScore);
+  // console.log(" * calculated hobbiesScore: ", hobbiesScore);
 
   const finalGradeScore = specificContentSelection("grade", mentee, mentors, ["大学4年", "大学院生", "既卒性/社会人"]);
-  console.log(" * calculated finalGradeScore: ", finalGradeScore);
+  // console.log(" * calculated finalGradeScore: ", finalGradeScore);
 
   const concernScore = firstConcernScore.map((score, index) => {
     return (

@@ -11,7 +11,7 @@ function test_onFormSubmit() {
       '国公立, 海外名門',           // university_types
       '国際関係学, 経営学',         // majors
       '将来の目標に沿って選択',     // major_circumstances
-      '国際開発, マーケティング',   // spesific_majors
+      '国際開発, マーケティング',   // specific_majors
       '北米',                       // study_abroad_area
       'アメリカ',                   // study_abroad_country
       '300万円',                    // budget
@@ -58,7 +58,7 @@ function onFormSubmit(e) {
   const university_types = e.values[7];
   const majors = e.values[8];
   const major_circumstances = e.values[9];
-  const spesific_majors = e.values[10];
+  const specific_majors = e.values[10];
   const study_abroad_area = e.values[11];
   const study_abroad_country = e.values[12];
   const budget = e.values[13];
@@ -93,7 +93,7 @@ function onFormSubmit(e) {
     university_types,
     majors,
     major_circumstances,
-    spesific_majors,
+    specific_majors,
     study_abroad_area,
     study_abroad_country,
     budget,
